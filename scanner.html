@@ -14,6 +14,7 @@ margin:0;
 overflow:hidden;
 }
 
+/* PANEL DE INFORMACION */
 #panel{
 position:fixed;
 bottom:20px;
@@ -32,26 +33,40 @@ z-index:10;
 
 <body>
 
+<!-- PANEL DONDE APARECE LA TRIVIA -->
 <div id="panel">
 
-<h2>México 🇲🇽</h2>
+<h2 id="countryTitle"></h2>
 
 <p><b>Trivia:</b></p>
-<p>¿En qué años México fue sede del Mundial?</p>
+<p id="triviaQuestion"></p>
 
-<button onclick="alert('1970 y 1986')">
+<button onclick="showAnswer()">
 Ver respuesta
 </button>
 
 </div>
 
+
 <a-scene embedded arjs>
 
+<!-- TEXTURAS DE BANDERAS -->
 <a-assets>
+
 <img id="mexicoTexture" src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg">
+
+<img id="usaTexture" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg">
+
+<img id="canadaTexture" src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg">
+
 </a-assets>
 
-<a-marker preset="hiro" id="mexicoMarker">
+
+<!-- ===================== -->
+<!-- MARCADOR MEXICO -->
+<!-- ===================== -->
+
+<a-marker type="pattern" url="mexico.patt" id="mexicoMarker">
 
 <a-plane
 src="#mexicoTexture"
@@ -64,9 +79,51 @@ animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
 
 </a-marker>
 
+
+
+<!-- ===================== -->
+<!-- MARCADOR USA -->
+<!-- ===================== -->
+
+<a-marker type="pattern" url="usa.patt" id="usaMarker">
+
+<a-plane
+src="#usaTexture"
+position="0 0.5 0"
+rotation="-90 0 0"
+width="2"
+height="1.2"
+animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
+</a-plane>
+
+</a-marker>
+
+
+
+<!-- ===================== -->
+<!-- MARCADOR CANADA -->
+<!-- ===================== -->
+
+<a-marker type="pattern" url="canada.patt" id="canadaMarker">
+
+<a-plane
+src="#canadaTexture"
+position="0 0.5 0"
+rotation="-90 0 0"
+width="2"
+height="1.2"
+animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
+</a-plane>
+
+</a-marker>
+
+
 <a-entity camera></a-entity>
 
 </a-scene>
+
+
+<!-- VIDEO -->
 <div id="videoContainer" style="
 position:fixed;
 top:50%;
@@ -77,9 +134,10 @@ z-index:9999;
 ">
 
 <iframe 
+id="videoFrame"
 width="560" 
 height="315"
-src="https://www.youtube.com/embed/2uRuPzTkcJg"
+src=""
 title="YouTube video"
 frameborder="0"
 allowfullscreen>
@@ -87,23 +145,106 @@ allowfullscreen>
 
 </div>
 
+
 <script>
+
+function showAnswer(){
+alert(currentAnswer)
+}
+
+let currentAnswer=""
 
 window.addEventListener("load", function(){
 
-const marker = document.querySelector("#mexicoMarker")
+const panel = document.getElementById("panel")
+const video = document.getElementById("videoContainer")
+const videoFrame = document.getElementById("videoFrame")
 
-marker.addEventListener("markerFound", function(){
+const title = document.getElementById("countryTitle")
+const question = document.getElementById("triviaQuestion")
 
-document.getElementById("panel").style.display="block"
-document.getElementById("videoContainer").style.display="block"
+/* ===================== */
+/* MEXICO */
+/* ===================== */
+
+const mexico = document.querySelector("#mexicoMarker")
+
+mexico.addEventListener("markerFound", function(){
+
+panel.style.display="block"
+video.style.display="block"
+
+title.innerHTML="México 🇲🇽"
+question.innerHTML="¿En qué años México fue sede del Mundial?"
+currentAnswer="1970 y 1986"
+
+videoFrame.src="https://www.youtube.com/embed/2uRuPzTkcJg"
 
 })
 
-marker.addEventListener("markerLost", function(){
+mexico.addEventListener("markerLost", function(){
 
-document.getElementById("panel").style.display="none"
-document.getElementById("videoContainer").style.display="none"
+panel.style.display="none"
+video.style.display="none"
+videoFrame.src=""
+
+})
+
+
+/* ===================== */
+/* USA */
+/* ===================== */
+
+const usa = document.querySelector("#usaMarker")
+
+usa.addEventListener("markerFound", function(){
+
+panel.style.display="block"
+video.style.display="block"
+
+title.innerHTML="Estados Unidos 🇺🇸"
+question.innerHTML="¿En qué año Estados Unidos fue sede del Mundial?"
+
+currentAnswer="1994"
+
+videoFrame.src="https://www.youtube.com/embed/Ly9Uo2Bz2vY"
+
+})
+
+usa.addEventListener("markerLost", function(){
+
+panel.style.display="none"
+video.style.display="none"
+videoFrame.src=""
+
+})
+
+
+/* ===================== */
+/* CANADA */
+/* ===================== */
+
+const canada = document.querySelector("#canadaMarker")
+
+canada.addEventListener("markerFound", function(){
+
+panel.style.display="block"
+video.style.display="block"
+
+title.innerHTML="Canadá 🇨🇦"
+question.innerHTML="¿En qué año Canadá participó por primera vez en un Mundial?"
+
+currentAnswer="1986"
+
+videoFrame.src="https://www.youtube.com/embed/JcF5y6R8dYQ"
+
+})
+
+canada.addEventListener("markerLost", function(){
+
+panel.style.display="none"
+video.style.display="none"
+videoFrame.src=""
 
 })
 
