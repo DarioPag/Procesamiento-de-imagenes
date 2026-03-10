@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayuda - AR World Cup 2026</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo">⚽ AR World Cup 2026</div>
+  <ul>
+    <li><a href="index.html#home">Home</a></li>
+    <li><a href="paises.html">Países</a></li>
+    <li><a href="ayuda.html">Ayuda</a></li>
+  </ul>
+</nav>
+
+<section class="hero-paises">
+  <div class="overlay">
+    <h1>Centro de Ayuda</h1>
+    <p>Encuentra respuestas a tus preguntas</p>
+  </div>
+</section>
+
+<section class="ayuda-section">
+  <div class="ayuda-container">
+    
+    <div class="ayuda-card">
+      <div class="ayuda-icon">❓</div>
+      <h3>¿Cómo funciona la Realidad Aumentada?</h3>
+      <p>La Realidad Aumentada (AR) permite superponer elementos digitales en tu vista del mundo real mediante la cámara de tu dispositivo. En nuestro sitio, puedes escanear marcadores para ver modelos 3D interactivos de jugadores y estadios del Mundial 2026.</p>
+    </div>
+
+    <div class="ayuda-card">
+      <div class="ayuda-icon">📱</div>
+      <h3>Requisitos técnicos</h3>
+      <p>Para disfrutar de la experiencia completa necesitas un navegador moderno compatible con WebGL y acceso a cámara. Se recomienda usar dispositivos con cámara frontal o trasera (smartphones, tablets u otros dispositivos con soporte AR).</p>
+    </div>
+
+    <div class="ayuda-card">
+      <div class="ayuda-icon">🎥</div>
+      <h3>Usar la cámara</h3>
+      <p>Haz clic en el botón circular 📸 que aparece en la parte inferior de la pantalla para activar tu cámara. Tu navegador te pedirá permiso para acceder a ella. Luego apunta a los marcadores para ver contenido en AR.</p>
+    </div>
+
+    <div class="ayuda-card">
+      <div class="ayuda-icon">🌍</div>
+      <h3>Explorar países</h3>
+      <p>Ve a la sección "Países" para ver las 8 naciones clasificadas al Mundial 2026. Haz clic en cualquier bandera para acceder a detalles específicos sobre partidos confirmados y más información de cada selección.</p>
+    </div>
+
+    <div class="ayuda-card">
+      <div class="ayuda-icon">🔒</div>
+      <h3>Privacidad y permisos</h3>
+      <p>Tu privacidad es importante. Nunca almacenamos video de tu cámara. Puedes revocar los permisos de cámara en cualquier momento desde la configuración de tu navegador o dispositivo.</p>
+    </div>
+
+    <div class="ayuda-card">
+      <div class="ayuda-icon">⚙️</div>
+      <h3>Solución de problemas</h3>
+      <p>Si la cámara no funciona, verifica que: 1) Tu navegador tenga permisos de cámara, 2) Otro programa no esté usando tu cámara, 3) Intenta recargar la página. Si persisten los problemas, contacta al equipo de soporte.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="faq-section">
+  <h2>Preguntas Frecuentes</h2>
+  <div class="faq-container">
+    
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>¿Qué navegadores son compatibles con la Realidad Aumentada?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Los navegadores modernos como Chrome, Firefox, Safari y Edge soportan AR. Se recomienda usar las últimas versiones para mejor compatibilidad y rendimiento.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>¿Necesito descargar una aplicación?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>No, esta es una experiencia web completamente basada en navegador. Solo necesitas acceder a nuestro sitio desde cualquier dispositivo con conexión a internet.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>¿Mis datos de cámara se guardan en los servidores?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>No. El video de tu cámara se procesa localmente en tu dispositivo. Nunca se envía información a nuestros servidores sin tu consentimiento explícito.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>¿Puedo usar AR en dispositivos móviles antiguos?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Depends de tu dispositivo. Los teléfonos con menos de 5 años deberían funcionar bien. Si experimentas problemas, asegúrate de tener la última versión de tu navegador.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>¿Cuántos países puedo explorar?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>Puedes explorar las 8 naciones clasificadas al Mundial 2026: México, Estados Unidos, Canadá, Argentina, Brasil, Uruguay, Colombia y Ecuador. Cada uno tiene información detallada sobre sus partidos.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFAQ(this)">
+        <span>¿Hay algún costo para usar esta plataforma?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <p>No, acceder a toda la experiencia es completamente gratuito. Solo necesitas una conexión a internet y un dispositivo compatible.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-col">
+      <h4>AR World Cup 2026</h4>
+      <p>Pagina dedicada al Mundial 2026 con tecnología de Realidad Aumentada</p>
+    </div>
+    <div class="footer-col">
+      <h4>Enlaces</h4>
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="paises.html">Países</a></li>
+        <li><a href="ayuda.html">Ayuda</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+     <h4>Contactos</h4>
+      <p>Miguel Alejandro Álvarez Espinoza</p>
+      <p>+52 8110931310</p>
+      <p>José Mario Varela Garcia</p>
+      <p>+52 81113169560</p>
+      <p>Aldo Dario Perez Gonzalez</p>
+      <p>+52 8182575744</p>
+    </div>
+    <div class="footer-col social">
+      <a href="#" class="social-icon">🐦</a>
+      <a href="#" class="social-icon">📖</a>
+      <a href="#" class="social-icon">📷</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 AR World Cup 2026. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+function toggleFAQ(button) {
+  const answer = button.nextElementSibling;
+  
+  // Cerrar todas las demás respuestas
+  document.querySelectorAll('.faq-answer').forEach(item => {
+    if (item !== answer) {
+      item.classList.remove('active');
+    }
+  });
+  
+  document.querySelectorAll('.faq-question').forEach(q => {
+    if (q !== button) {
+      q.classList.remove('active');
+    }
+  });
+  
+  // Alternar la respuesta actual
+  button.classList.toggle('active');
+  answer.classList.toggle('active');
+}
+</script>
+<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+</body>
+</html>

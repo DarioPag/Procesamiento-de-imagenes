@@ -1,0 +1,837 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+html{
+  font-size:16px;
+}
+
+@media(max-width:768px){
+  html{
+    font-size:14px;
+  }
+}
+
+@media(max-width:480px){
+  html{
+    font-size:13px;
+  }
+}
+
+:root{
+  --primary-color:#2D3436; /* gris oscuro para navbar y botones */
+  --primary-light:#4A5568; /* gris medio para hover */
+  --primary-dark:#1A1A1A; /* casi negro para acentos */
+  --secondary-color:#FFFFFF; /* blanco puro */
+  --tertiary-color:#F5F5F5; /* gris muy claro para fondo */
+  --accent-color:#4A90A4; /* teal azulado minimalista */
+}
+
+body{
+  background:var(--tertiary-color);
+}
+
+/* NAVBAR */
+.navbar{
+  background:var(--primary-color);
+  color:var(--secondary-color);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 50px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+}
+
+.navbar ul{
+  list-style:none;
+  display:flex;
+  gap:30px;
+}
+
+.navbar a{
+  color:white;
+  text-decoration:none;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.navbar a:hover{
+  color:var(--secondary-color);
+}
+
+/* HERO */
+.hero{
+  height:420px;
+  margin:40px;
+  border-radius:20px;
+  background:url('https://qpwebsite.s3.amazonaws.com/uploads/2026/03/rss-efe9e1513e68acb272f3261cb6bcc76d0edbd22e8f9w-1200x675.jpg') center/cover no-repeat;
+  position:relative;
+  overflow:hidden;
+}
+
+.overlay{
+  background:rgba(0,0,0,0.55);
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+  padding:20px;
+}
+
+.overlay h1{
+  font-size:38px;
+  margin-bottom:10px;
+}
+
+.overlay p{
+  font-weight:300;
+  font-size:18px;
+}
+
+.hero-paises{
+  height:420px;
+  margin:40px;
+  border-radius:20px;
+  background:url('https://bayareadeportes.com/wp-content/uploads/2025/04/COPA-1024x768.webp') center/cover no-repeat;
+  position:relative;
+  overflow:hidden;
+}
+
+/* CARDS */
+.cards{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  padding:40px;
+  flex-wrap:wrap;
+}
+
+.card{
+  background:white;
+  width:360px;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+.card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+.card-content{
+  padding:20px;
+}
+
+.card h3{
+  margin-bottom:10px;
+}
+
+.card p{
+  font-size:14px;
+  margin-bottom:20px;
+  color:#555;
+}
+
+.btn{
+  background:var(--primary-color);
+  color:var(--secondary-color);
+  border:none;
+  padding:10px 18px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn:hover{
+  background:var(--secondary-color);
+  color:var(--primary-color);
+}
+
+/* camera button */
+.btn-camera{
+  margin-top:20px;
+  font-size:16px;
+  padding:12px 24px;
+  background:var(--primary-dark);
+  color:var(--secondary-color);
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:0.3s;
+}
+.btn-camera:hover{
+  background:var(--primary-color);
+}
+
+/* minimal circular camera button */
+.btn-camera-minimal{
+  margin-top:20px;
+  font-size:20px;
+  width:48px;
+  height:48px;
+  background:var(--primary-dark);
+  color:var(--secondary-color);
+  border:none;
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:0.3s;
+}
+.btn-camera-minimal:hover{
+  background:var(--primary-color);
+}
+
+/* fixed floating camera button for index */
+.fixed-camera-btn{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:64px;
+  height:64px;
+  background:var(--primary-dark);
+  color:var(--secondary-color);
+  border:none;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  cursor:pointer;
+  z-index:1000;
+  transition:background 0.3s;
+}
+.fixed-camera-btn:hover{
+  background:var(--primary-color);
+}
+
+/* PAISES */
+.paises{
+  padding:60px 20px;
+  text-align:center;
+}
+
+.paises h2{
+  font-size:32px;
+  margin-bottom:40px;
+  color:var(--primary-color);
+}
+
+.paises-container{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:30px;
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+.pais-card{
+  background:white;
+  border-radius:15px;
+  padding:30px 20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.08);
+  transition:0.4s;
+  border-top:4px solid var(--accent-color);
+}
+
+.pais-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+.pais-flag{
+  font-size:100px;
+  margin-bottom:15px;
+  display:block;
+  line-height:1;
+  height:120px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.pais-flag-img{
+  width:100%;
+  height:120px;
+  object-fit:contain;
+  border-radius:10px;
+  margin-bottom:15px;
+  background:white;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.pais-card h3{
+  font-size:20px;
+  color:var(--accent-color);
+  margin:0;
+}
+
+/* clickable card link wrapper */
+.pais-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.pais-card-link:hover .pais-card {
+  transform: translateY(-8px);
+  box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* country detail page hero */
+.hero-country{
+  height:420px;
+  margin:40px;
+  border-radius:20px;
+  /* use a representative image or flag - can be replaced later */
+  background:url('https://flagpedia.net/data/flags/w580/mx.png') center/cover no-repeat;
+  position:relative;
+  overflow:hidden;
+}
+
+.detalles{
+  max-width:800px;
+  margin:0 auto;
+  padding:40px 20px;
+  text-align:left;
+}
+
+.detalles h2{
+  color:var(--primary-color);
+  margin-bottom:20px;
+}
+
+.detalles ul{
+  list-style:disc outside;
+  margin-left:20px;
+}
+
+/* AYUDA SECTION */
+.ayuda-section{
+  padding:60px 20px;
+  background:var(--tertiary-color);
+}
+
+.ayuda-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+  gap:30px;
+  max-width:1400px;
+  margin:0 auto;
+}
+
+.ayuda-card{
+  background:var(--secondary-color);
+  border-radius:12px;
+  padding:30px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+  transition:0.3s;
+  border-left:4px solid var(--accent-color);
+}
+
+.ayuda-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 8px 25px rgba(0,0,0,0.15);
+}
+
+.ayuda-icon{
+  font-size:48px;
+  margin-bottom:15px;
+  display:block;
+}
+
+.ayuda-card h3{
+  font-size:20px;
+  color:var(--primary-color);
+  margin-bottom:15px;
+  font-weight:600;
+}
+
+.ayuda-card p{
+  font-size:14px;
+  color:#555;
+  line-height:1.6;
+}
+
+/* FOOTER */
+footer{
+  background:var(--primary-color);
+  color:var(--secondary-color);
+  margin-top:40px;
+}
+
+.footer-container{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-around;
+  padding:40px 50px;
+}
+
+.footer-col{
+  flex:1;
+  min-width:200px;
+  margin:20px;
+}
+
+.footer-col h4{
+  font-size:18px;
+  margin-bottom:15px;
+  font-weight:600;
+}
+
+.footer-col ul{
+  list-style:none;
+  padding:0;
+}
+
+.footer-col ul li{
+  margin-bottom:8px;
+}
+
+.footer-col ul li a{
+  color:white;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.footer-col ul li a:hover{
+  color:var(--secondary-color);
+}
+
+.footer-bottom{
+  text-align:center;
+  padding:15px;
+  background:var(--primary-dark);
+  font-size:14px;
+}
+
+.social-icon{
+  display:flex;
+  margin-right:10px;
+  font-size:20px;
+  color:white;
+  transition:0.3s;
+}
+
+.social-icon:hover{
+  color:var(--secondary-color);
+}
+
+/* FAQ SECTION */
+.faq-section{
+  max-width:900px;
+  margin:0 auto;
+  padding:60px 20px;
+}
+
+.faq-section h2{
+  font-size:32px;
+  color:var(--primary-color);
+  margin-bottom:40px;
+  text-align:center;
+}
+
+.faq-container{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.faq-item{
+  background:var(--secondary-color);
+  border:1px solid #ddd;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.faq-question{
+  width:100%;
+  padding:20px;
+  background:var(--secondary-color);
+  border:none;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:16px;
+  font-weight:600;
+  color:var(--primary-color);
+  transition:background 0.3s;
+}
+
+.faq-question:hover{
+  background:#f9f9f9;
+}
+
+.faq-icon{
+  font-size:24px;
+  transition:transform 0.3s;
+}
+
+.faq-question.active .faq-icon{
+  transform:rotate(45deg);
+}
+
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.3s ease;
+  background:#f9f9f9;
+}
+
+.faq-answer.active{
+  max-height:500px;
+}
+
+.faq-answer p{
+  padding:20px;
+  color:#555;
+  line-height:1.6;
+  font-size:14px;
+}
+
+/* RESPONSIVE - Mobile First */
+@media(max-width:768px){
+  /* NAVBAR */
+  .navbar{
+    padding:12px 20px;
+    flex-direction:column;
+    gap:15px;
+    align-items:flex-start;
+  }
+
+  .logo{
+    font-size:18px;
+  }
+
+  .navbar ul{
+    width:100%;
+    gap:15px;
+    font-size:14px;
+  }
+
+  /* HERO */
+  .hero{
+    height:250px;
+    margin:15px;
+    border-radius:12px;
+  }
+
+  .overlay h1{
+    font-size:22px;
+    margin-bottom:8px;
+  }
+
+  .overlay p{
+    font-size:14px;
+  }
+
+  .hero-paises{
+    height:250px;
+    margin:15px;
+  }
+
+  /* CARDS */
+  .cards{
+    padding:20px;
+    gap:20px;
+    flex-direction:column;
+  }
+
+  .card{
+    width:100%;
+    border-radius:12px;
+  }
+
+  .card img{
+    height:150px;
+  }
+
+  .card-content{
+    padding:15px;
+  }
+
+  .card h3{
+    font-size:16px;
+  }
+
+  .card p{
+    font-size:13px;
+  }
+
+  .btn{
+    padding:8px 16px;
+    font-size:13px;
+    border-radius:6px;
+  }
+
+  /* PAISES */
+  .paises{
+    padding:40px 15px;
+  }
+
+  .paises h2{
+    font-size:24px;
+    margin-bottom:25px;
+  }
+
+  .paises-container{
+    grid-template-columns:repeat(2, 1fr);
+    gap:15px;
+    padding:0 15px;
+  }
+
+  .pais-card{
+    padding:20px 15px;
+    border-radius:12px;
+  }
+
+  .pais-flag-img{
+    height:100px;
+  }
+
+  .pais-card h3{
+    font-size:16px;
+  }
+
+  /* DETALLES */
+  .detalles{
+    max-width:100%;
+    padding:30px 20px;
+  }
+
+  .detalles h2{
+    font-size:20px;
+    margin-bottom:15px;
+  }
+
+  .detalles ul{
+    margin-left:15px;
+  }
+
+  .detalles ul li{
+    font-size:14px;
+    margin-bottom:10px;
+  }
+
+  .detalles p{
+    font-size:14px;
+  }
+
+  /* FAQ */
+  .faq-section{
+    padding:40px 15px;
+  }
+
+  .faq-section h2{
+    font-size:24px;
+    margin-bottom:25px;
+  }
+
+  .faq-question{
+    padding:15px;
+    font-size:14px;
+  }
+
+  .faq-icon{
+    font-size:20px;
+  }
+
+  .faq-answer p{
+    padding:15px;
+    font-size:13px;
+  }
+
+  /* AYUDA CARDS */
+  .ayuda-container{
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:0 15px;
+  }
+
+  .ayuda-card{
+    padding:20px;
+  }
+
+  .ayuda-icon{
+    font-size:40px;
+    margin-bottom:12px;
+  }
+
+  .ayuda-card h3{
+    font-size:16px;
+    margin-bottom:10px;
+  }
+
+  .ayuda-card p{
+    font-size:13px;
+  }
+
+  /* FOOTER */
+  .footer-container{
+    flex-direction:column;
+    align-items:center;
+    padding:30px 20px;
+  }
+
+  .footer-col{
+    min-width:100%;
+    margin:15px 0;
+    text-align:center;
+  }
+
+  .footer-col h4{
+    font-size:16px;
+    margin-bottom:12px;
+  }
+
+  .footer-col p{
+    font-size:12px;
+    margin-bottom:8px;
+  }
+
+  .footer-col ul li{
+    margin-bottom:6px;
+  }
+
+  .footer-col ul li a{
+    font-size:13px;
+  }
+
+  .social-icon{
+    margin-right:8px;
+    font-size:18px;
+  }
+
+  .footer-bottom{
+    padding:12px;
+    font-size:12px;
+  }
+
+  /* FIXED CAMERA BUTTON */
+  .fixed-camera-btn{
+    width:56px;
+    height:56px;
+    bottom:15px;
+    font-size:24px;
+  }
+
+  /* PAIS CARD LINK */
+  .pais-card-link{
+    display:block;
+  }
+
+  .pais-card-link:active .pais-card{
+    transform:translateY(-5px);
+  }
+}
+
+@media(max-width:480px){
+  /* NAVBAR */
+  .navbar{
+    padding:10px 15px;
+  }
+
+  .logo{
+    font-size:16px;
+  }
+
+  .navbar ul{
+    gap:12px;
+    font-size:12px;
+  }
+
+  .navbar a{
+    font-weight:500;
+  }
+
+  /* HERO */
+  .hero{
+    height:200px;
+    margin:10px;
+  }
+
+  .overlay h1{
+    font-size:18px;
+    margin-bottom:5px;
+  }
+
+  .overlay p{
+    font-size:12px;
+  }
+
+  /* CARDS */
+  .cards{
+    padding:15px;
+    gap:15px;
+  }
+
+  .card img{
+    height:120px;
+  }
+
+  /* PAISES */
+  .paises-container{
+    grid-template-columns:1fr;
+    gap:15px;
+    padding:0 10px;
+  }
+
+  .pais-flag-img{
+    height:80px;
+  }
+
+  .ayuda-container{
+    padding:0 10px;
+  }
+
+  /* Footer */
+  .footer-container{
+    padding:20px 15px;
+  }
+
+  .footer-col h4{
+    font-size:14px;
+  }
+
+  .footer-col p{
+    font-size:11px;
+  }
+
+  .footer-bottom{
+    font-size:11px;
+    padding:10px;
+  }
+
+  /* FIXED CAMERA BUTTON */
+  .fixed-camera-btn{
+    width:50px;
+    height:50px;
+    bottom:12px;
+    font-size:22px;
+  }
+}
