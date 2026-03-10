@@ -1,6 +1,16 @@
 function openCamera() {
 
+// ocultar toda la página
+document.body.style.display = "none";
+
 const arContainer = document.createElement("div")
+
+arContainer.style.position = "fixed"
+arContainer.style.top = "0"
+arContainer.style.left = "0"
+arContainer.style.width = "100%"
+arContainer.style.height = "100%"
+arContainer.style.zIndex = "999999"
 
 arContainer.innerHTML = `
 
@@ -30,14 +40,10 @@ background:white;
 padding:15px;
 border-radius:10px;
 display:none;
-z-index:99999;
+z-index:999999;
 ">
 
 <h2>México 🇲🇽</h2>
-
-<iframe width="300" height="180"
-src="https://www.youtube.com/embed/2jVYvX1mF3A">
-</iframe>
 
 <p><b>Trivia:</b></p>
 <p>¿En qué años México fue sede del Mundial?</p>
@@ -50,21 +56,16 @@ Ver respuesta
 
 `
 
-
 document.body.appendChild(arContainer)
 
 const marker = document.querySelector("#mexicoMarker")
 
 marker.addEventListener("markerFound", function(){
-
 document.getElementById("infoPanel").style.display="block"
-
 })
 
 marker.addEventListener("markerLost", function(){
-
 document.getElementById("infoPanel").style.display="none"
-
 })
 
 }
