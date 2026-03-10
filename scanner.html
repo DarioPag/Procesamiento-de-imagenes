@@ -47,31 +47,66 @@ Ver respuesta
 
 <a-scene embedded arjs>
 
+<a-assets>
+<img id="mexicoTexture" src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg">
+</a-assets>
+
 <a-marker preset="hiro" id="mexicoMarker">
 
-<a-image
-src="MX.png"
+<a-plane
+src="#mexicoTexture"
+position="0 0.5 0"
 rotation="-90 0 0"
 width="2"
-height="1">
-</a-image>
+height="1.2"
+animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
+</a-plane>
 
 </a-marker>
 
 <a-entity camera></a-entity>
 
 </a-scene>
+<div id="videoContainer" style="
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+display:none;
+z-index:9999;
+">
+
+<iframe 
+width="560" 
+height="315"
+src="https://www.youtube.com/embed/2uRuPzTkcJg"
+title="YouTube video"
+frameborder="0"
+allowfullscreen>
+</iframe>
+
+</div>
 
 <script>
+
+window.addEventListener("load", function(){
 
 const marker = document.querySelector("#mexicoMarker")
 
 marker.addEventListener("markerFound", function(){
+
 document.getElementById("panel").style.display="block"
+document.getElementById("videoContainer").style.display="block"
+
 })
 
 marker.addEventListener("markerLost", function(){
+
 document.getElementById("panel").style.display="none"
+document.getElementById("videoContainer").style.display="none"
+
+})
+
 })
 
 </script>
