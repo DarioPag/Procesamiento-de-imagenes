@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+
+<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+}
+
+#panel{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:white;
+padding:20px;
+border-radius:10px;
+display:none;
+z-index:10;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="panel">
+
+<h2>México 🇲🇽</h2>
+
+<p><b>Trivia:</b></p>
+<p>¿En qué años México fue sede del Mundial?</p>
+
+<button onclick="alert('1970 y 1986')">
+Ver respuesta
+</button>
+
+</div>
+
+<a-scene embedded arjs>
+
+<a-marker preset="hiro" id="mexicoMarker">
+
+<a-image
+src="mexico_flag.png"
+rotation="-90 0 0"
+width="2"
+height="1">
+</a-image>
+
+</a-marker>
+
+<a-entity camera></a-entity>
+
+</a-scene>
+
+<script>
+
+const marker = document.querySelector("#mexicoMarker")
+
+marker.addEventListener("markerFound", function(){
+document.getElementById("panel").style.display="block"
+})
+
+marker.addEventListener("markerLost", function(){
+document.getElementById("panel").style.display="none"
+})
+
+</script>
+
+</body>
+</html>
