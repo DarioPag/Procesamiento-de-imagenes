@@ -3,7 +3,6 @@
 <head>
 
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
@@ -13,83 +12,19 @@
 body{
 margin:0;
 overflow:hidden;
-font-family:Arial, Helvetica, sans-serif;
 }
 
 /* PANEL DE INFORMACION */
-
 #panel{
 position:fixed;
-bottom:10px;
+bottom:20px;
 left:50%;
 transform:translateX(-50%);
 background:white;
-padding:15px;
-border-radius:12px;
+padding:20px;
+border-radius:10px;
 display:none;
 z-index:10;
-width:90%;
-max-width:420px;
-box-shadow:0 4px 12px rgba(0,0,0,0.3);
-text-align:center;
-}
-
-#panel h2{
-margin:0 0 5px 0;
-font-size:20px;
-}
-
-#panel p{
-margin:5px 0;
-font-size:16px;
-}
-
-#panel button{
-margin-top:10px;
-padding:8px 16px;
-border:none;
-background:#2196f3;
-color:white;
-border-radius:8px;
-font-size:15px;
-}
-
-/* VIDEO RESPONSIVE */
-
-#videoContainer{
-position:fixed;
-top:10px;
-left:50%;
-transform:translateX(-50%);
-display:none;
-z-index:9999;
-width:95%;
-max-width:420px;
-}
-
-#videoFrame{
-width:100%;
-height:220px;
-border-radius:12px;
-}
-
-/* AJUSTE EXTRA PARA CELULARES */
-
-@media (max-width:600px){
-
-#panel{
-width:92%;
-font-size:15px;
-}
-
-#panel h2{
-font-size:18px;
-}
-
-#videoFrame{
-height:200px;
-}
-
 }
 
 </style>
@@ -98,8 +33,7 @@ height:200px;
 
 <body>
 
-<!-- PANEL TRIVIA -->
-
+<!-- PANEL DONDE APARECE LA TRIVIA -->
 <div id="panel">
 
 <h2 id="countryTitle"></h2>
@@ -114,96 +48,181 @@ Ver respuesta
 </div>
 
 
-<a-scene
-embedded
-vr-mode-ui="enabled:false"
-renderer="logarithmicDepthBuffer: true;"
-arjs="
-sourceType: webcam;
-facingMode: environment;
-trackingMethod: best;
-debugUIEnabled: false;
-">
+<a-scene embedded arjs>
 
+<!-- TEXTURAS DE BANDERAS -->
 <a-assets>
 
-<img id="mexicoTexture" crossorigin="anonymous" src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg">
-<img id="argentinaTexture" crossorigin="anonymous" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg">
-<img id="brazilTexture" crossorigin="anonymous" src="https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg">
-<img id="uruguayTexture" crossorigin="anonymous" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Uruguay.svg">
-<img id="colombiaTexture" crossorigin="anonymous" src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg">
-<img id="ecuadorTexture" crossorigin="anonymous" src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Flag_of_Ecuador.svg">
-<img id="usaTexture" crossorigin="anonymous" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg">
-<img id="canadaTexture" crossorigin="anonymous" src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg">
+<img id="mexicoTexture" src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg">
+<img id="argentinaTexture" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg">
+<img id="brazilTexture" src="https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg">
+<img id="uruguayTexture" src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Uruguay.svg">
+<img id="colombiaTexture" src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg">
+<img id="ecuadorTexture" src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Flag_of_Ecuador.svg">
+<img id="usaTexture" src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg">
+<img id="canadaTexture" src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg">
 
 </a-assets>
 
-<!-- MEXICO -->
-<a-marker type="pattern" url="pattern-mx.patt" id="mexicoMarker">
-<a-plane src="#mexicoTexture" position="0 0.5 0" rotation="-90 0 0" width="2" height="1.2"
+
+<!-- ===================== -->
+<!-- MARCADOR MEXICO -->
+<!-- ===================== -->
+
+ <a-marker type="pattern" url="pattern-mx.patt" id="mexicoMarker"> 
+<!-- <a-marker preset="hiro" id="mexicoMarker"></a-marker> -->
+<a-plane
+src="#mexicoTexture"
+position="0 0.5 0"
+rotation="-90 0 0"
+width="2"
+height="1.2"
 animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
 </a-plane>
+
 </a-marker>
 
-<!-- USA -->
+
+
+<!-- ===================== -->
+<!-- MARCADOR USA -->
+<!-- ===================== -->
+
 <a-marker type="pattern" url="pattern-us.patt" id="usaMarker">
-<a-plane src="#usaTexture" position="0 0.5 0" rotation="-90 0 0" width="2" height="1.2"
+
+<a-plane
+src="#usaTexture"
+position="0 0.5 0"
+rotation="-90 0 0"
+width="2"
+height="1.2"
 animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
 </a-plane>
+
 </a-marker>
 
-<!-- CANADA -->
+
+
+<!-- ===================== -->
+<!-- MARCADOR CANADA -->
+<!-- ===================== -->
+
 <a-marker type="pattern" url="pattern-ca.patt" id="canadaMarker">
-<a-plane src="#canadaTexture" position="0 0.5 0" rotation="-90 0 0" width="2" height="1.2"
+
+<a-plane
+src="#canadaTexture"
+position="0 0.5 0"
+rotation="-90 0 0"
+width="2"
+height="1.2"
+animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
+</a-plane>
+
+</a-marker>
+    
+<!-- ===================== -->
+<!-- MARCADOR Argentina -->
+<!-- ===================== -->
+
+ <a-marker type="pattern" url="pattern-ar.patt" id="argentinaMarker"> 
+
+<a-plane
+src="#argentinaTexture"
+position="0 0.5 0"
+rotation="-90 0 0"
+width="2"
+height="1.2"
+animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
+</a-plane>
+
+</a-marker>
+
+<!-- ===================== -->
+<!-- MARCADOR BRASIL -->
+<!-- ===================== -->
+
+ <a-marker type="pattern" url="pattern-br.patt" id="brazilMarker"> 
+
+<a-plane
+src="#brazilTexture"
+position="0 0.5 0"
+rotation="-90 0 0"
+width="2"
+height="1.2"
+animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
+</a-plane>
+
+</a-marker>
+
+<!-- ===================== -->
+<!-- MARCADOR URUGUAY -->
+<!-- ===================== -->
+
+ <a-marker type="pattern" url="pattern-ur.patt" id="uruguayMarker"> 
+
+<a-plane
+src="#uruguayTexture"
+position="0 0.5 0"
+rotation="-90 0 0"
+width="2"
+height="1.2"
 animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
 </a-plane>
 </a-marker>
 
-<!-- ARGENTINA -->
-<a-marker type="pattern" url="pattern-ar.patt" id="argentinaMarker">
-<a-plane src="#argentinaTexture" position="0 0.5 0" rotation="-90 0 0" width="2" height="1.2"
+<!-- ===================== -->
+<!-- MARCADOR COLOMBIA -->
+<!-- ===================== -->
+
+<a-marker type="pattern" url="pattern-col.patt" id="colombiaMarker"> 
+
+<a-plane
+src="#colombiaTexture"
+position="0 0.5 0"
+rotation="-90 0 0"
+width="2"
+height="1.2"
 animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
 </a-plane>
+
 </a-marker>
 
-<!-- BRAZIL -->
-<a-marker type="pattern" url="pattern-br.patt" id="brazilMarker">
-<a-plane src="#brazilTexture" position="0 0.5 0" rotation="-90 0 0" width="2" height="1.2"
-animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
-</a-plane>
-</a-marker>
+<!-- ===================== -->
+<!-- MARCADOR ECUADOR -->
+<!-- ===================== -->
 
-<!-- URUGUAY -->
-<a-marker type="pattern" url="pattern-ur.patt" id="uruguayMarker">
-<a-plane src="#uruguayTexture" position="0 0.5 0" rotation="-90 0 0" width="2" height="1.2"
-animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
-</a-plane>
-</a-marker>
+<a-marker type="pattern" url="pattern-ec.patt" id="ecuadorMarker"> 
 
-<!-- COLOMBIA -->
-<a-marker type="pattern" url="pattern-col.patt" id="colombiaMarker">
-<a-plane src="#colombiaTexture" position="0 0.5 0" rotation="-90 0 0" width="2" height="1.2"
+<a-plane
+src="#ecuadorTexture"
+position="0 0.5 0"
+rotation="-90 0 0"
+width="2"
+height="1.2"
 animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
 </a-plane>
-</a-marker>
 
-<!-- ECUADOR -->
-<a-marker type="pattern" url="pattern-ec.patt" id="ecuadorMarker">
-<a-plane src="#ecuadorTexture" position="0 0.5 0" rotation="-90 0 0" width="2" height="1.2"
-animation="property: rotation; to: -90 360 0; loop: true; dur: 6000">
-</a-plane>
 </a-marker>
 
 <a-entity camera></a-entity>
 
 </a-scene>
 
+
 <!-- VIDEO -->
+<div id="videoContainer" style="
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+display:none;
+z-index:9999;
+">
 
-<div id="videoContainer">
-
-<iframe
+<iframe 
 id="videoFrame"
+width="560" 
+height="315"
 src=""
 title="YouTube video"
 frameborder="0"
@@ -230,114 +249,229 @@ const videoFrame = document.getElementById("videoFrame")
 const title = document.getElementById("countryTitle")
 const question = document.getElementById("triviaQuestion")
 
-function showCountry(name, trivia, answer, videoURL){
+/* ===================== */
+/* MEXICO */
+/* ===================== */
+
+const mexico = document.querySelector("#mexicoMarker")
+
+mexico.addEventListener("markerFound", function(){
 
 panel.style.display="block"
 video.style.display="block"
 
-title.innerHTML=name
-question.innerHTML=trivia
-currentAnswer=answer
+title.innerHTML="México 🇲🇽"
+question.innerHTML="¿En qué años México fue sede del Mundial?"
+currentAnswer="1970 y 1986"
 
-videoFrame.src=videoURL
+videoFrame.src="https://www.youtube.com/embed/2uRuPzTkcJg"  
 
-}
+})
 
-function hideCountry(){
+mexico.addEventListener("markerLost", function(){
 
 panel.style.display="none"
 video.style.display="none"
 videoFrame.src=""
 
-}
+})
 
-/* MEXICO */
 
-mexicoMarker.addEventListener("markerFound",()=>showCountry(
-"México 🇲🇽",
-"¿En qué años México fue sede del Mundial?",
-"1970 y 1986",
-"https://www.youtube.com/embed/2uRuPzTkcJg"
-))
-
-mexicoMarker.addEventListener("markerLost",hideCountry)
-
+/* ===================== */
 /* USA */
+/* ===================== */
 
-usaMarker.addEventListener("markerFound",()=>showCountry(
-"Estados Unidos 🇺🇸",
-"¿En qué año Estados Unidos fue sede del Mundial?",
-"1994",
-"https://www.youtube.com/embed/gpEH3pZNXok"
-))
+const usa = document.querySelector("#usaMarker")
 
-usaMarker.addEventListener("markerLost",hideCountry)
+usa.addEventListener("markerFound", function(){
 
+panel.style.display="block"
+video.style.display="block"
+
+title.innerHTML="Estados Unidos 🇺🇸"
+question.innerHTML="¿En qué año Estados Unidos fue sede del Mundial?"
+
+currentAnswer="1994"
+
+videoFrame.src="https://www.youtube.com/embed/gpEH3pZNXok"
+
+})
+
+usa.addEventListener("markerLost", function(){
+
+panel.style.display="none"
+video.style.display="none"
+videoFrame.src=""
+
+})
+
+
+/* ===================== */
 /* CANADA */
+/* ===================== */
 
-canadaMarker.addEventListener("markerFound",()=>showCountry(
-"Canadá 🇨🇦",
-"¿En qué año Canadá participó por primera vez en un Mundial?",
-"1986",
-"https://www.youtube.com/embed/Uu3ow1_fpxY"
-))
+const canada = document.querySelector("#canadaMarker")
 
-canadaMarker.addEventListener("markerLost",hideCountry)
+canada.addEventListener("markerFound", function(){
 
-/* ARGENTINA */
+panel.style.display="block"
+video.style.display="block"
 
-argentinaMarker.addEventListener("markerFound",()=>showCountry(
-"Argentina 🇦🇷",
-"¿Cuántos Mundiales ha ganado Argentina?",
-"3 (1978, 1986 y 2022)",
-"https://www.youtube.com/embed/mC2VgPD0rTQ"
-))
+title.innerHTML="Canadá 🇨🇦"
+question.innerHTML="¿En qué año Canadá participó por primera vez en un Mundial?"
 
-argentinaMarker.addEventListener("markerLost",hideCountry)
+currentAnswer="1986"
 
-/* BRAZIL */
+videoFrame.src="https://www.youtube.com/embed/Uu3ow1_fpxY"
 
-brazilMarker.addEventListener("markerFound",()=>showCountry(
-"Brasil 🇧🇷",
-"¿Cuántos Mundiales ha ganado Brasil?",
-"5",
-"https://www.youtube.com/embed/oVLERGbfwvA"
-))
+})
 
-brazilMarker.addEventListener("markerLost",hideCountry)
+canada.addEventListener("markerLost", function(){
 
-/* URUGUAY */
+panel.style.display="none"
+video.style.display="none"
+videoFrame.src=""
 
-uruguayMarker.addEventListener("markerFound",()=>showCountry(
-"Uruguay 🇺🇾",
-"¿En qué años Uruguay ganó el Mundial?",
-"1930 y 1950",
-"https://www.youtube.com/embed/sgcULpc5rVg"
-))
+})
 
-uruguayMarker.addEventListener("markerLost",hideCountry)
+/* ===================== */
+/* Argentina */
+/* ===================== */
+const argentina = document.querySelector("#argentinaMarker")
 
-/* COLOMBIA */
+argentina.addEventListener("markerFound", function(){
 
-colombiaMarker.addEventListener("markerFound",()=>showCountry(
-"Colombia 🇨🇴",
-"¿Quién es el máximo goleador histórico de Colombia?",
-"Radamel Falcao",
-"https://www.youtube.com/embed/sgcULpc5rVg"
-))
+panel.style.display="block"
+video.style.display="block"
 
-colombiaMarker.addEventListener("markerLost",hideCountry)
+title.innerHTML="Argentina 🇦🇷"
+question.innerHTML="¿Cuántos Mundiales ha ganado Argentina?"
 
-/* ECUADOR */
+currentAnswer="3 (1978, 1986 y 2022)"
 
-ecuadorMarker.addEventListener("markerFound",()=>showCountry(
-"Ecuador 🇪🇨",
-"¿En qué año Ecuador debutó en un Mundial?",
-"2002",
-"https://www.youtube.com/embed/pRNK68T2IVs"
-))
+videoFrame.src="https://www.youtube.com/embed/mC2VgPD0rTQ"
 
-ecuadorMarker.addEventListener("markerLost",hideCountry)
+})
+
+argentina.addEventListener("markerLost", function(){
+
+panel.style.display="none"
+video.style.display="none"
+videoFrame.src=""
+
+})
+
+/* ===================== */
+/* Brazil */
+/* ===================== */
+
+const brazil = document.querySelector("#brazilMarker")
+
+brazil.addEventListener("markerFound", function(){
+
+panel.style.display="block"
+video.style.display="block"
+
+title.innerHTML="Brasil 🇧🇷"
+question.innerHTML="¿Cuántos Mundiales ha ganado Brasil?"
+
+currentAnswer="5"
+
+videoFrame.src="https://www.youtube.com/embed/oVLERGbfwvA"
+
+})
+
+brazil.addEventListener("markerLost", function(){
+
+panel.style.display="none"
+video.style.display="none"
+videoFrame.src=""
+
+})
+
+/* ===================== */
+/* Uruguay */
+/* ===================== */
+const uruguay = document.querySelector("#uruguayMarker")
+
+uruguay.addEventListener("markerFound", function(){
+
+panel.style.display="block"
+video.style.display="block"
+
+title.innerHTML="Uruguay 🇺🇾"
+question.innerHTML="¿En qué años Uruguay ganó el Mundial?"
+
+currentAnswer="1930 y 1950"
+
+videoFrame.src="https://www.youtube.com/embed/sgcULpc5rVg"
+
+})
+
+uruguay.addEventListener("markerLost", function(){
+
+panel.style.display="none"
+video.style.display="none"
+videoFrame.src=""
+
+})
+
+/* ===================== */
+/* Colombia */
+/* ===================== */
+
+const colombia = document.querySelector("#colombiaMarker")
+
+colombia.addEventListener("markerFound", function(){
+console.log("COLOMBIA DETECTADA")
+
+panel.style.display="block"
+video.style.display="block"
+
+title.innerHTML="Colombia 🇨🇴"
+question.innerHTML="¿Quién es el máximo goleador histórico de Colombia?"
+
+currentAnswer="Radamel Falcao"
+
+videoFrame.src="https://www.youtube.com/embed/sgcULpc5rVg"
+
+})
+
+colombia.addEventListener("markerLost", function(){
+
+panel.style.display="none"
+video.style.display="none"
+videoFrame.src=""
+
+})
+
+/* ===================== */
+/* Ecuador */   
+/* ===================== */
+
+const ecuador = document.querySelector("#ecuadorMarker")
+
+ecuador.addEventListener("markerFound", function(){
+
+panel.style.display="block"
+video.style.display="block"
+
+title.innerHTML="Ecuador 🇪🇨"
+question.innerHTML="¿En qué año Ecuador debutó en un Mundial?"
+
+currentAnswer="2002"
+
+videoFrame.src="https://www.youtube.com/embed/pRNK68T2IVs"
+
+})
+
+ecuador.addEventListener("markerLost", function(){
+
+panel.style.display="none"
+video.style.display="none"
+videoFrame.src=""
+
+})
 
 })
 
