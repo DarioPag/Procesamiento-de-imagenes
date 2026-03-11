@@ -114,7 +114,16 @@ Ver respuesta
 </div>
 
 
-<a-scene embedded arjs>
+<a-scene
+embedded
+vr-mode-ui="enabled:false"
+renderer="logarithmicDepthBuffer: true;"
+arjs="
+sourceType: webcam;
+facingMode: environment;
+trackingMethod: best;
+debugUIEnabled: false;
+">
 
 <a-assets>
 
