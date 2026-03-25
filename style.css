@@ -834,4 +834,337 @@ footer{
     bottom:12px;
     font-size:22px;
   }
+
+  /* DETALLES - Mobile */
+  .country-header{
+    text-align:center;
+    margin-bottom:25px;
+  }
+
+  .trivia-box{
+    background:#f0f4f8;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+  }
+
+  .trivia-box .question{
+    font-size:14px;
+    color:var(--primary-color);
+    margin-bottom:10px;
+  }
+
+  .trivia-box .currentAnswer{
+    font-size:14px;
+    color:var(--accent-color);
+    font-weight:700;
+  }
+
+  .video-container{
+    margin-bottom:25px;
+  }
+
+  .videoFrame{
+    width:100%;
+    height:auto;
+    border-radius:10px;
+  }
+
+  .matches-section h3{
+    font-size:18px;
+    color:var(--primary-color);
+    margin:25px 0 15px;
+  }
+
+  .matches-container{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .match-card{
+    background:white;
+    border-left:4px solid var(--accent-color);
+    border-radius:10px;
+    padding:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    transition:0.3s;
+  }
+
+  .match-card:active{
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .match-teams{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    margin-bottom:10px;
+    font-weight:600;
+  }
+
+  .match-teams .team{
+    font-size:14px;
+  }
+
+  .match-teams .vs{
+    font-size:12px;
+    color:#999;
+    font-weight:400;
+  }
+
+  .match-details p{
+    font-size:12px;
+    color:#666;
+    margin:4px 0;
+    line-height:1.4;
+  }
+
+  .match-details .date{
+    color:var(--primary-color);
+    font-weight:600;
+  }
+
+  .more-info{
+    text-align:center;
+    font-size:12px;
+    color:#999;
+    margin-top:20px;
+  }
+}
+
+/* COUNTRY DETAILS - Base styles */
+.country-header{
+  text-align:center;
+  margin-bottom:30px;
+  padding-bottom:20px;
+  border-bottom:2px solid var(--accent-color);
+}
+
+.country-header.title{
+  margin:0;
+  font-size:36px;
+  color:var(--primary-color);
+}
+
+.country-description{
+  font-size:15px;
+  color:#555;
+  line-height:1.8;
+  margin-top:15px;
+  max-width:700px;
+  margin-left:auto;
+  margin-right:auto;
+  font-weight:400;
+}
+
+.trivia-box{
+  background:linear-gradient(135deg, #f0f4f8 0%, #e3f2fd 100%);
+  padding:25px;
+  border-radius:12px;
+  margin-bottom:30px;
+  border-left:4px solid var(--accent-color);
+  box-shadow:0 4px 12px rgba(74, 144, 164, 0.15);
+}
+
+.trivia-box .question{
+  font-size:18px;
+  font-weight:600;
+  color:var(--primary-color);
+  margin-bottom:12px;
+}
+
+.trivia-box .currentAnswer{
+  font-size:20px;
+  color:var(--accent-color);
+  font-weight:700;
+}
+
+.video-container{
+  margin:30px 0;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+.videoFrame{
+  width:100%;
+  height:auto;
+  border:none;
+  aspect-ratio:16/9;
+  border-radius:12px;
+}
+
+.matches-section{
+  margin-top:40px;
+  padding-top:30px;
+  border-top:2px solid #eee;
+}
+
+.matches-section h3{
+  font-size:24px;
+  color:var(--primary-color);
+  margin-bottom:25px;
+  text-align:center;
+  font-weight:700;
+}
+
+.matches-container{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+}
+
+.match-card{
+  background:white;
+  border-left:5px solid var(--accent-color);
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.08);
+  transition:0.4s;
+}
+
+.match-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(74, 144, 164, 0.2);
+}
+
+.match-teams{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:15px;
+  gap:10px;
+}
+
+.match-teams .team{
+  font-size:16px;
+  font-weight:700;
+  color:var(--primary-color);
+  flex:1;
+  text-align:center;
+}
+
+.match-teams .team:first-child{
+  text-align:right;
+}
+
+.match-teams .team:last-child{
+  text-align:left;
+}
+
+.match-teams .vs{
+  font-size:13px;
+  color:#999;
+  font-weight:400;
+  margin:0 8px;
+  min-width:35px;
+  text-align:center;
+}
+
+.match-details{
+  background:#f8f9fa;
+  padding:15px;
+  border-radius:8px;
+}
+
+.match-details p{
+  font-size:14px;
+  color:#555;
+  margin:6px 0;
+  line-height:1.5;
+}
+
+.match-details .date{
+  color:var(--accent-color);
+  font-weight:700;
+  font-size:15px;
+}
+
+.more-info{
+  text-align:center;
+  font-size:13px;
+  color:#999;
+  margin-top:30px;
+  padding:20px;
+  background:#f5f5f5;
+  border-radius:8px;
+}
+
+/* RESPONSIVE - Tablet (768px) */
+@media(max-width:768px){
+  .country-header{
+    margin-bottom:20px;
+    padding-bottom:15px;
+  }
+
+  .country-header.title{
+    font-size:28px;
+  }
+
+  .country-description{
+    font-size:14px;
+    line-height:1.6;
+    margin-top:12px;
+  }
+
+  .trivia-box{
+    padding:18px;
+    margin-bottom:20px;
+  }
+
+  .trivia-box .question{
+    font-size:16px;
+    margin-bottom:10px;
+  }
+
+  .trivia-box .currentAnswer{
+    font-size:18px;
+  }
+
+  .matches-section h3{
+    font-size:20px;
+    margin-bottom:18px;
+  }
+
+  .match-card{
+    padding:15px;
+  }
+
+  .match-teams .team{
+    font-size:14px;
+  }
+
+  .match-details p{
+    font-size:13px;
+  }
+}
+
+@media(max-width:480px){
+  .country-header{
+    margin-bottom:18px;
+    padding-bottom:12px;
+  }
+
+  .country-header.title{
+    font-size:24px;
+  }
+
+  .country-description{
+    font-size:13px;
+    line-height:1.5;
+    margin-top:10px;
+  }
+
+  .trivia-box{
+    padding:15px;
+  }
+
+  .trivia-box .question{
+    font-size:14px;
+  }
+
+  .trivia-box .currentAnswer{
+    font-size:16px;
+  }
 }
