@@ -68,8 +68,8 @@ body {
   border-radius: 14px;
   display: none;
   z-index: 10000;
-  min-width: 280px;
-  max-width: 360px;
+  min-width: 300px;
+  max-width: 380px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.18);
   text-align: center;
 }
@@ -79,35 +79,41 @@ body {
   font-size: 1.3rem;
 }
 
-#panel p {
-  margin: 4px 0;
+#triviaQuestion {
+  margin: 4px 0 6px;
   font-size: 0.95rem;
   color: #333;
 }
 
-#panel button {
-  margin: 8px 6px 0;
-  padding: 9px 18px;
+/* Navegación de preguntas */
+#triviaNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 6px 0 4px;
+}
+
+#triviaNav button {
+  background: #ddd;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 1rem;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: transform 0.1s, opacity 0.2s;
+  transition: background 0.2s;
+  color: #333;
+  font-weight: 700;
 }
 
-#panel button:active {
-  transform: scale(0.96);
+#triviaNav button:hover {
+  background: #bbb;
 }
 
-#btnAnswer {
-  background: #2ecc71;
-  color: white;
-}
-
-#btnFilter {
-  background: #555;
-  color: white;
+#triviaCounter {
+  font-size: 0.8rem;
+  color: #888;
+  min-width: 40px;
 }
 
 #answerBox {
@@ -120,6 +126,46 @@ body {
   font-weight: 700;
   color: #1a6e3a;
   font-size: 1rem;
+}
+
+/* Botones de acción */
+#actionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+#panel button.action-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: transform 0.1s, opacity 0.2s, background 0.2s;
+}
+
+#panel button.action-btn:active {
+  transform: scale(0.96);
+}
+
+#btnAnswer {
+  background: #2ecc71;
+  color: white;
+}
+
+/* Filtros — color base inactivo */
+.filter-btn {
+  background: #555;
+  color: white;
+}
+
+/* Filtros — activo */
+.filter-btn.active {
+  outline: 3px solid #4A90A4;
+  outline-offset: 1px;
 }
 
 /* ===========================
@@ -145,9 +191,25 @@ body {
   transition: filter 0.4s ease;
 }
 
-/* Clase que activa el filtro B&N */
+/* ===========================
+   FILTROS
+   =========================== */
 #videoFrame.filtroBN {
   filter: grayscale(100%) contrast(1.1);
+}
+
+#videoFrame.filtroDesenfoque {
+  filter: blur(4px);
+}
+
+#videoFrame.filtroPixelado {
+  image-rendering: pixelated;
+  filter: contrast(1.1);
+  transform: scale(1.01); /* evita borde blanco con pixelado */
+}
+
+#videoFrame.filtroAzul {
+  filter: sepia(0.3) saturate(1.5) hue-rotate(180deg) brightness(1.05);
 }
 
 </style>
@@ -161,12 +223,24 @@ body {
 <!-- PANEL TRIVIA -->
 <div id="panel">
   <h2 id="countryTitle"></h2>
-  <p><b>Trivia:</b></p>
+
   <p id="triviaQuestion"></p>
+
+  <div id="triviaNav">
+    <button onclick="cambiarPregunta(-1)">&#8592;</button>
+    <span id="triviaCounter">1 / 5</span>
+    <button onclick="cambiarPregunta(1)">&#8594;</button>
+  </div>
+
   <div id="answerBox"></div>
-  <br>
-  <button id="btnAnswer" onclick="showAnswer()">Ver respuesta</button>
-  <button id="btnFilter" onclick="toggleFiltro()">🎨 Blanco y Negro</button>
+
+  <div id="actionButtons">
+    <button class="action-btn" id="btnAnswer" onclick="showAnswer()">✅ Ver respuesta</button>
+    <button class="action-btn filter-btn" id="btnBN"        onclick="toggleFiltro('filtroBN',        this)">⬛ B&amp;N</button>
+    <button class="action-btn filter-btn" id="btnDesenfoque" onclick="toggleFiltro('filtroDesenfoque', this)">🌫️ Desenfoque</button>
+    <button class="action-btn filter-btn" id="btnPixelado"   onclick="toggleFiltro('filtroPixelado',   this)">🟦 Pixelado</button>
+    <button class="action-btn filter-btn" id="btnAzul"       onclick="toggleFiltro('filtroAzul',       this)">🔵 Tono azul</button>
+  </div>
 </div>
 
 <!-- VIDEO -->
@@ -187,14 +261,14 @@ body {
 <a-scene embedded arjs>
 
   <a-assets>
-    <img id="mexicoTexture"   src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg">
+    <img id="mexicoTexture"    src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg">
     <img id="argentinaTexture" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg">
-    <img id="brazilTexture"   src="https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg">
-    <img id="uruguayTexture"  src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Uruguay.svg">
-    <img id="colombiaTexture" src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg">
-    <img id="ecuadorTexture"  src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Flag_of_Ecuador.svg">
-    <img id="usaTexture"      src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg">
-    <img id="canadaTexture"   src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg">
+    <img id="brazilTexture"    src="https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg">
+    <img id="uruguayTexture"   src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Uruguay.svg">
+    <img id="colombiaTexture"  src="https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Colombia.svg">
+    <img id="ecuadorTexture"   src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Flag_of_Ecuador.svg">
+    <img id="usaTexture"       src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg">
+    <img id="canadaTexture"    src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg">
   </a-assets>
 
   <!-- MEXICO -->
@@ -261,41 +335,176 @@ body {
 <script>
 
 /* ===========================
-   ESTADO GLOBAL
+   BASE DE DATOS DE PAÍSES
+   Cada país: { titulo, video, colores, trivia: [{p, r}] }
    =========================== */
-let currentAnswer = ""
-let filtroActivo  = false
+const PAISES = {
+
+  mexico: {
+    titulo: "México 🇲🇽",
+    video: "https://www.youtube.com/embed/2uRuPzTkcJg",
+    colores: ["#006847","#CE1126","#FFFFFF","#F5A623"],
+    trivia: [
+      { p: "¿En qué años México fue sede del Mundial?",                       r: "1970 y 1986" },
+      { p: "¿Cuántas veces ha llegado México a cuartos de final en un Mundial?", r: "Ninguna (el famoso 'Quinto partido' aún no ha llegado)" },
+      { p: "¿Quién es el máximo goleador histórico de la Selección Mexicana?", r: "Javier 'Chicharito' Hernández (52 goles)" },
+      { p: "¿En qué Mundial México llegó a los octavos de final por última vez?", r: "Rusia 2018" },
+      { p: "¿Cómo se llama el estadio más icónico del fútbol mexicano?",       r: "Estadio Azteca, en Ciudad de México" }
+    ]
+  },
+
+  usa: {
+    titulo: "Estados Unidos 🇺🇸",
+    video: "https://www.youtube.com/embed/gpEH3pZNXok",
+    colores: ["#B22234","#3C3B6E","#FFFFFF"],
+    trivia: [
+      { p: "¿En qué año Estados Unidos fue sede del Mundial?",                r: "1994" },
+      { p: "¿Cuál fue el mejor resultado de USA en un Mundial?",              r: "Tercer lugar en Uruguay 1930" },
+      { p: "¿Cómo se llama la liga profesional de fútbol en Estados Unidos?", r: "Major League Soccer (MLS)" },
+      { p: "¿Cuántos títulos de Copa Oro ha ganado la Selección de USA?",     r: "7 títulos (el más reciente en 2021)" },
+      { p: "¿Quién es el máximo goleador histórico de la Selección de USA?",  r: "Clint Dempsey y Landon Donovan (57 goles cada uno)" }
+    ]
+  },
+
+  canada: {
+    titulo: "Canadá 🇨🇦",
+    video: "https://www.youtube.com/embed/Uu3ow1_fpxY",
+    colores: ["#FF0000","#FFFFFF"],
+    trivia: [
+      { p: "¿En qué año Canadá participó por primera vez en un Mundial?",       r: "1986, en México" },
+      { p: "¿Cómo se llama la estrella más reconocida de la Selección Canadiense actual?", r: "Alphonso Davies" },
+      { p: "¿En qué año Canadá ganó la medalla de oro olímpica femenina en fútbol?", r: "Tokio 2020 (disputado en 2021)" },
+      { p: "¿Cuál fue el resultado de Canadá en su debut en Qatar 2022?",       r: "Perdió 1-0 ante Bélgica" },
+      { p: "¿En qué club europeo juega Alphonso Davies?",                       r: "Bayern Múnich (Alemania)" }
+    ]
+  },
+
+  argentina: {
+    titulo: "Argentina 🇦🇷",
+    video: "https://www.youtube.com/embed/mC2VgPD0rTQ",
+    colores: ["#74ACDF","#FFFFFF","#F6B40E"],
+    trivia: [
+      { p: "¿Cuántos Mundiales ha ganado Argentina?",                          r: "3 (1978, 1986 y 2022)" },
+      { p: "¿Quién marcó el 'Gol del Siglo' en México 1986?",                 r: "Diego Armando Maradona" },
+      { p: "¿Cuántos Balones de Oro tiene Lionel Messi?",                     r: "8 Balones de Oro" },
+      { p: "¿Cuál es el apodo de la Selección Argentina?",                    r: "La Albiceleste" },
+      { p: "¿En qué estadio Argentina ganó el Mundial de 2022?",              r: "Estadio Lusail, en Qatar" }
+    ]
+  },
+
+  brasil: {
+    titulo: "Brasil 🇧🇷",
+    video: "https://www.youtube.com/embed/oVLERGbfwvA",
+    colores: ["#009C3B","#FFDF00","#002776","#FFFFFF"],
+    trivia: [
+      { p: "¿Cuántos Mundiales ha ganado Brasil?",                            r: "5 (1958, 1962, 1970, 1994 y 2002)" },
+      { p: "¿Cuál es el apodo de la Selección Brasileña?",                   r: "La Canarinha" },
+      { p: "¿Quién es el máximo goleador histórico de Brasil?",              r: "Pelé (77 goles)" },
+      { p: "¿Cómo se llama la derrota histórica de Brasil ante Alemania en 2014?", r: "El 'Mineirazo' (7-1)" },
+      { p: "¿En qué año Brasil fue sede del Mundial?",                       r: "1950 y 2014" }
+    ]
+  },
+
+  uruguay: {
+    titulo: "Uruguay 🇺🇾",
+    video: "https://www.youtube.com/embed/sgcULpc5rVg",
+    colores: ["#00A3E0","#FFFFFF","#FFD700"],
+    trivia: [
+      { p: "¿En qué años Uruguay ganó el Mundial?",                           r: "1930 y 1950" },
+      { p: "¿Cómo se llama la derrota de Brasil ante Uruguay en el Mundial de 1950?", r: "El 'Maracanazo'" },
+      { p: "¿Cuántas Copa América ha ganado Uruguay?",                       r: "15 títulos (el más ganador histórico)" },
+      { p: "¿Quién es el máximo goleador histórico de Uruguay?",             r: "Luis Suárez (68 goles)" },
+      { p: "¿Cuál es el apodo de la Selección Uruguaya?",                   r: "La Celeste" }
+    ]
+  },
+
+  colombia: {
+    titulo: "Colombia 🇨🇴",
+    video: "https://www.youtube.com/embed/sgcULpc5rVg",
+    colores: ["#FFD700","#003087","#CE1126"],
+    trivia: [
+      { p: "¿Quién es el máximo goleador histórico de Colombia?",            r: "Radamel Falcao (36 goles)" },
+      { p: "¿En qué Mundial Colombia llegó a cuartos de final?",             r: "Brasil 2014" },
+      { p: "¿Qué jugador colombiano ganó el premio al mejor gol del Mundial de 2014?", r: "James Rodríguez" },
+      { p: "¿Cuántas veces Colombia ha clasificado a un Mundial?",           r: "6 veces (1962, 1990, 1994, 1998, 2014 y 2018)" },
+      { p: "¿Cuál es el apodo de la Selección Colombiana?",                 r: "Los Cafeteros" }
+    ]
+  },
+
+  ecuador: {
+    titulo: "Ecuador 🇪🇨",
+    video: "https://www.youtube.com/embed/pRNK68T2IVs",
+    colores: ["#FFD100","#003DA5","#EF3340","#FFFFFF"],
+    trivia: [
+      { p: "¿En qué año Ecuador debutó en un Mundial?",                      r: "2002, en Corea-Japón" },
+      { p: "¿Cuántas veces ha clasificado Ecuador a un Mundial?",            r: "4 veces (2002, 2006, 2014 y 2022)" },
+      { p: "¿Quién es el máximo goleador histórico de Ecuador?",            r: "Agustín Delgado (31 goles)" },
+      { p: "¿Cómo se llama el estadio principal de la Selección Ecuatoriana?", r: "Estadio Rodrigo Paz Delgado, en Quito" },
+      { p: "¿Cuál es el apodo de la Selección Ecuatoriana?",               r: "La Tri" }
+    ]
+  }
+
+}
 
 /* ===========================
-   TRIVIA: mostrar respuesta
+   ESTADO GLOBAL
+   =========================== */
+let triviaActual   = []   // arreglo de {p, r} del país activo
+let preguntaIndex  = 0    // índice de pregunta actual
+let filtroActivo   = null // clase CSS del filtro activo
+
+/* ===========================
+   NAVEGACIÓN DE PREGUNTAS
+   =========================== */
+function cambiarPregunta(dir) {
+  preguntaIndex = (preguntaIndex + dir + triviaActual.length) % triviaActual.length
+  renderPregunta()
+}
+
+function renderPregunta() {
+  const item = triviaActual[preguntaIndex]
+  document.getElementById("triviaQuestion").textContent = item.p
+  document.getElementById("triviaCounter").textContent  = (preguntaIndex + 1) + " / " + triviaActual.length
+  // ocultar respuesta al cambiar pregunta
+  const box = document.getElementById("answerBox")
+  box.style.display = "none"
+  box.textContent   = ""
+}
+
+/* ===========================
+   MOSTRAR RESPUESTA
    =========================== */
 function showAnswer() {
   const box = document.getElementById("answerBox")
-  box.textContent = "✅ " + currentAnswer
+  box.textContent   = "✅ " + triviaActual[preguntaIndex].r
   box.style.display = "block"
 }
 
 /* ===========================
-   FILTRO BLANCO Y NEGRO
-   Aplica/quita grayscale al iframe
+   FILTROS — solo uno activo a la vez
    =========================== */
-function toggleFiltro() {
-  const frame  = document.getElementById("videoFrame")
-  const btn    = document.getElementById("btnFilter")
-  filtroActivo = !filtroActivo
+function toggleFiltro(clase, btn) {
+  const frame    = document.getElementById("videoFrame")
+  const FILTROS  = ["filtroBN","filtroDesenfoque","filtroPixelado","filtroAzul"]
+  const eraActivo = filtroActivo === clase
 
-  if (filtroActivo) {
-    frame.classList.add("filtroBN")
-    btn.textContent = "🎨 Color"
+  // quitar todos los filtros y estilos active
+  FILTROS.forEach(f => frame.classList.remove(f))
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"))
+
+  if (eraActivo) {
+    // segundo clic: apagar filtro
+    filtroActivo = null
   } else {
-    frame.classList.remove("filtroBN")
-    btn.textContent = "🎨 Blanco y Negro"
+    // activar el nuevo filtro
+    frame.classList.add(clase)
+    btn.classList.add("active")
+    filtroActivo = clase
   }
 }
 
 /* ===========================
-   CONFETTI PURO EN CSS/JS
-   colores: array de strings CSS
+   CONFETTI
    =========================== */
 function lanzarConfeti(colores) {
   const container = document.getElementById("confettiContainer")
@@ -304,26 +513,16 @@ function lanzarConfeti(colores) {
   for (let i = 0; i < cantidad; i++) {
     const piece = document.createElement("div")
     piece.classList.add("confetti-piece")
-
-    // posición horizontal aleatoria
-    piece.style.left = Math.random() * 100 + "vw"
-
-    // color aleatorio de la paleta del país
-    piece.style.background = colores[Math.floor(Math.random() * colores.length)]
-
-    // duración y delay aleatorios para que no caigan todos igual
+    piece.style.left            = Math.random() * 100 + "vw"
+    piece.style.background      = colores[Math.floor(Math.random() * colores.length)]
     const dur   = (2 + Math.random() * 2).toFixed(2) + "s"
     const delay = (Math.random() * 1.2).toFixed(2) + "s"
     piece.style.animationDuration = dur
     piece.style.animationDelay    = delay
-
-    // tamaño ligeramente variado
     const size = 8 + Math.random() * 8
     piece.style.width  = size + "px"
     piece.style.height = (size * 1.4) + "px"
-
     container.appendChild(piece)
-    // limpiar después de que termine
     setTimeout(() => piece.remove(), (parseFloat(dur) + parseFloat(delay) + 0.5) * 1000)
   }
 }
@@ -331,21 +530,24 @@ function lanzarConfeti(colores) {
 /* ===========================
    HELPERS UI
    =========================== */
-function mostrarPais(titulo, pregunta, respuesta, videoSrc, coloresConfeti) {
+function mostrarPais(key) {
+  const pais  = PAISES[key]
   const panel = document.getElementById("panel")
   const video = document.getElementById("videoContainer")
   const frame = document.getElementById("videoFrame")
 
-  document.getElementById("countryTitle").innerHTML  = titulo
-  document.getElementById("triviaQuestion").innerHTML = pregunta
-  document.getElementById("answerBox").style.display = "none"
-  currentAnswer = respuesta
+  // cargar trivia
+  triviaActual  = pais.trivia
+  preguntaIndex = 0
+
+  document.getElementById("countryTitle").innerHTML = pais.titulo
+  renderPregunta()
 
   panel.style.display = "block"
   video.style.display = "block"
-  frame.src = videoSrc
+  frame.src = pais.video
 
-  lanzarConfeti(coloresConfeti)
+  lanzarConfeti(pais.colores)
 }
 
 function ocultarPais() {
@@ -357,10 +559,11 @@ function ocultarPais() {
   video.style.display = "none"
   frame.src = ""
 
-  // reset filtro al perder el marcador
-  frame.classList.remove("filtroBN")
-  filtroActivo = false
-  document.getElementById("btnFilter").textContent = "🎨 Blanco y Negro"
+  // reset filtros
+  const FILTROS = ["filtroBN","filtroDesenfoque","filtroPixelado","filtroAzul"]
+  FILTROS.forEach(f => frame.classList.remove(f))
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"))
+  filtroActivo = null
 }
 
 /* ===========================
@@ -368,101 +571,29 @@ function ocultarPais() {
    =========================== */
 window.addEventListener("load", function () {
 
-  /* MÉXICO */
-  document.querySelector("#mexicoMarker").addEventListener("markerFound", () =>
-    mostrarPais(
-      "México 🇲🇽",
-      "¿En qué años México fue sede del Mundial?",
-      "1970 y 1986",
-      "https://www.youtube.com/embed/2uRuPzTkcJg",
-      ["#006847","#CE1126","#FFFFFF","#F5A623"]
-    )
-  )
-  document.querySelector("#mexicoMarker").addEventListener("markerLost", ocultarPais)
+  document.querySelector("#mexicoMarker").addEventListener("markerFound",   () => mostrarPais("mexico"))
+  document.querySelector("#mexicoMarker").addEventListener("markerLost",    ocultarPais)
 
-  /* USA */
-  document.querySelector("#usaMarker").addEventListener("markerFound", () =>
-    mostrarPais(
-      "Estados Unidos 🇺🇸",
-      "¿En qué año Estados Unidos fue sede del Mundial?",
-      "1994",
-      "https://www.youtube.com/embed/gpEH3pZNXok",
-      ["#B22234","#3C3B6E","#FFFFFF"]
-    )
-  )
-  document.querySelector("#usaMarker").addEventListener("markerLost", ocultarPais)
+  document.querySelector("#usaMarker").addEventListener("markerFound",      () => mostrarPais("usa"))
+  document.querySelector("#usaMarker").addEventListener("markerLost",       ocultarPais)
 
-  /* CANADÁ */
-  document.querySelector("#canadaMarker").addEventListener("markerFound", () =>
-    mostrarPais(
-      "Canadá 🇨🇦",
-      "¿En qué año Canadá participó por primera vez en un Mundial?",
-      "1986",
-      "https://www.youtube.com/embed/Uu3ow1_fpxY",
-      ["#FF0000","#FFFFFF"]
-    )
-  )
-  document.querySelector("#canadaMarker").addEventListener("markerLost", ocultarPais)
+  document.querySelector("#canadaMarker").addEventListener("markerFound",   () => mostrarPais("canada"))
+  document.querySelector("#canadaMarker").addEventListener("markerLost",    ocultarPais)
 
-  /* ARGENTINA */
-  document.querySelector("#argentinaMarker").addEventListener("markerFound", () =>
-    mostrarPais(
-      "Argentina 🇦🇷",
-      "¿Cuántos Mundiales ha ganado Argentina?",
-      "3 (1978, 1986 y 2022)",
-      "https://www.youtube.com/embed/mC2VgPD0rTQ",
-      ["#74ACDF","#FFFFFF","#F6B40E"]
-    )
-  )
+  document.querySelector("#argentinaMarker").addEventListener("markerFound",() => mostrarPais("argentina"))
   document.querySelector("#argentinaMarker").addEventListener("markerLost", ocultarPais)
 
-  /* BRASIL */
-  document.querySelector("#brazilMarker").addEventListener("markerFound", () =>
-    mostrarPais(
-      "Brasil 🇧🇷",
-      "¿Cuántos Mundiales ha ganado Brasil?",
-      "5",
-      "https://www.youtube.com/embed/oVLERGbfwvA",
-      ["#009C3B","#FFDF00","#002776","#FFFFFF"]
-    )
-  )
-  document.querySelector("#brazilMarker").addEventListener("markerLost", ocultarPais)
+  document.querySelector("#brazilMarker").addEventListener("markerFound",   () => mostrarPais("brasil"))
+  document.querySelector("#brazilMarker").addEventListener("markerLost",    ocultarPais)
 
-  /* URUGUAY */
-  document.querySelector("#uruguayMarker").addEventListener("markerFound", () =>
-    mostrarPais(
-      "Uruguay 🇺🇾",
-      "¿En qué años Uruguay ganó el Mundial?",
-      "1930 y 1950",
-      "https://www.youtube.com/embed/sgcULpc5rVg",
-      ["#00A3E0","#FFFFFF","#FFD700"]
-    )
-  )
-  document.querySelector("#uruguayMarker").addEventListener("markerLost", ocultarPais)
+  document.querySelector("#uruguayMarker").addEventListener("markerFound",  () => mostrarPais("uruguay"))
+  document.querySelector("#uruguayMarker").addEventListener("markerLost",   ocultarPais)
 
-  /* COLOMBIA */
-  document.querySelector("#colombiaMarker").addEventListener("markerFound", () =>
-    mostrarPais(
-      "Colombia 🇨🇴",
-      "¿Quién es el máximo goleador histórico de Colombia?",
-      "Radamel Falcao",
-      "https://www.youtube.com/embed/sgcULpc5rVg",
-      ["#FFD700","#003087","#CE1126"]
-    )
-  )
-  document.querySelector("#colombiaMarker").addEventListener("markerLost", ocultarPais)
+  document.querySelector("#colombiaMarker").addEventListener("markerFound", () => mostrarPais("colombia"))
+  document.querySelector("#colombiaMarker").addEventListener("markerLost",  ocultarPais)
 
-  /* ECUADOR */
-  document.querySelector("#ecuadorMarker").addEventListener("markerFound", () =>
-    mostrarPais(
-      "Ecuador 🇪🇨",
-      "¿En qué año Ecuador debutó en un Mundial?",
-      "2002",
-      "https://www.youtube.com/embed/pRNK68T2IVs",
-      ["#FFD100","#003DA5","#EF3340","#FFFFFF"]
-    )
-  )
-  document.querySelector("#ecuadorMarker").addEventListener("markerLost", ocultarPais)
+  document.querySelector("#ecuadorMarker").addEventListener("markerFound",  () => mostrarPais("ecuador"))
+  document.querySelector("#ecuadorMarker").addEventListener("markerLost",   ocultarPais)
 
 })
 
