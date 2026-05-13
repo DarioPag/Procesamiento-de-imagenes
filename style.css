@@ -600,12 +600,12 @@ footer{
   box-shadow:0 4px 20px rgba(0,0,0,0.3);
 }
 
-#videoFrame{
+/* Tamaños fijos SOLO para el iframe del AR (dentro de #videoContainer) */
+#videoContainer #videoFrame{
   display:block;
   width:340px;
   height:190px;
   border:none;
-  /* Transición suave al activar/desactivar el filtro */
   transition:filter 0.4s ease;
 }
 
@@ -632,11 +632,6 @@ footer{
   z-index:9998;
 }
 
-/*
-  Clase usada por el JS para cada pieza de confetti.
-  Reemplaza la antigua clase ".confetti" para evitar
-  colisiones con otros estilos del proyecto.
-*/
 .confetti-piece{
   position:absolute;
   top:-20px;
@@ -645,11 +640,6 @@ footer{
   animation:confettiFall linear forwards;
 }
 
-/*
-  Animación de caída con rotación y desvanecimiento.
-  Renombrada de "caer" a "confettiFall" para coincidir
-  con el JS del HTML corregido.
-*/
 @keyframes confettiFall{
   0%{
     transform:translateY(0) rotate(0deg) scaleX(1);
@@ -898,7 +888,8 @@ footer{
     padding:14px 18px;
   }
 
-  #videoFrame{
+  /* Tamaños AR en tablet (solo dentro de #videoContainer) */
+  #videoContainer #videoFrame{
     width:300px;
     height:170px;
   }
@@ -1051,7 +1042,8 @@ footer{
     font-size:0.82rem;
   }
 
-  #videoFrame{
+  /* Tamaños AR en móvil pequeño (solo dentro de #videoContainer) */
+  #videoContainer #videoFrame{
     width:260px;
     height:146px;
   }
@@ -1134,18 +1126,29 @@ footer{
   font-weight:700;
 }
 
+/* ===================================== */
+/* VIDEO RESPONSIVE (página de detalles) */
+/* ===================================== */
 .video-container{
   margin:30px 0;
   border-radius:12px;
   overflow:hidden;
   box-shadow:0 4px 15px rgba(0,0,0,0.1);
+  position:relative;
+  width:100%;
+  padding-bottom:56.25%; /* proporción 16:9 */
+  height:0;
 }
 
+/* El iframe dentro de .video-container siempre ocupa el 100% */
+.video-container #videoFrame,
 .videoFrame{
-  width:100%;
-  height:auto;
+  position:absolute;
+  top:0;
+  left:0;
+  width:100% !important;
+  height:100% !important;
   border:none;
-  aspect-ratio:16/9;
   border-radius:12px;
 }
 
